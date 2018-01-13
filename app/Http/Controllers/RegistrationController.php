@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Note;
-use App\Http\Resources\Note as NoteResource;
 
-class NoteController extends Controller
+class RegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +13,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        // Get Notes
-        $notes = Note::paginate(15);
-
-        // Return collection of notes as a resource
-        return NoteResource::collection($notes);
+        //
     }
 
     /**
@@ -30,7 +23,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        //
+        return view('sessions.create');
     }
 
     /**
@@ -41,16 +34,7 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $note = $request -> isMethod('put') ? Note::findOrFail($request -> note_id) : new Note;
-
-        $note->id = $request->input('note_id');
-        $note->title = $request->input('title');
-        $note->body = $request->input('body');
-        $note->user_id  = $request->input('user_id');
-
-        if($note->save()){
-            return NoteController::index();
-        }
+        //
     }
 
     /**
@@ -61,13 +45,7 @@ class NoteController extends Controller
      */
     public function show($id)
     {
-        //Get note
-        $note = Note::findOrFail($id);
-
-        //info($note->user->id);
-
-        //Return single note as resource
-        return new NoteResource($note);
+        //
     }
 
     /**
@@ -101,11 +79,6 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
-        //Delete note
-        $note = Note::findOrFail($id);
-
-        if($note->delete()) {
-            return NoteController::index();
-        }
+        //
     }
 }

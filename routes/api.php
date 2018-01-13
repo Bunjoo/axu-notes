@@ -31,3 +31,12 @@ Route::put('note','NoteController@store');
 
 // Delete Article
 Route::delete('note/{id}','NoteController@destroy');
+
+// Register a User
+Route::get('/signup', 'RegisterController@create');
+// Route::get('/login', 'RegistrationController@create');
+
+// User login
+Route::get('/login', 'AuthController@login');
+//OR:
+// Route::get('/login', 'SessionsController@create');

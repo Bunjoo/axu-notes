@@ -16,11 +16,13 @@ class Note extends Resource
     {
         //return parent::toArray($request);
 
+
         return [
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
             'user_id' => $this->user_id
+
         ];
     }
 
