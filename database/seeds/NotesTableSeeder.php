@@ -11,6 +11,7 @@ class NotesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Notes::class, 30) -> create();
+        DB::table('notes')->delete();
+        factory(App\Note::class, 30) -> create();
     }
 }
