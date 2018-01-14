@@ -9,24 +9,6 @@ import ReactDOM from 'react-dom';
 class Notes extends Component {
 
     componentDidMount() {
-        this.handleNotes();
-    }
-
-    handleNotes() {
-        let notes = this.props.notes;
-        let url;
-
-        url = '/notes/public/api/notes';
-
-        fetch(url)
-            .then(res => {
-                return res.json();
-            })
-            .then(data => {
-                this.props.getNotes(data);
-            });
-
-
     }
 
     handleClick(e, note){
@@ -42,6 +24,48 @@ class Notes extends Component {
                 this.props.clickNote(data);
             });
 
+    }
+
+    getPage(e, value){
+        e.preventDefault();
+
+        this.props.getPages(value);
+    }
+
+    renderPageNav(){
+        if(this.props.meta.current_page == 1){
+            return(
+                <div>
+                    <button value="first" disabled onClick={ (e) => this.getPage(e, "first") }>First</button>
+                    <button value="prev" disabled onClick={ (e) => this.getPage(e, "prev") }>Prev</button>
+
+                    <button value="next" onClick={ (e) => this.getPage(e, "next") }>Next</button>
+                    <button value="last" onClick={ (e) => this.getPage(e, "last") }>Last</button>
+                </div>
+            );
+        }
+        else if(this.props.meta.current_page == this.props.meta.last_page){
+            return(
+                <div>
+                    <button value="first" onClick={ (e) => this.getPage(e, "first") }>First</button>
+                    <button value="prev" onClick={ (e) => this.getPage(e, "prev") }>Prev</button>
+
+                    <button value="next" disabled onClick={ (e) => this.getPage(e, "next") }>Next</button>
+                    <button value="last" disabled onClick={ (e) => this.getPage(e, "last") }>Last</button>
+                </div>
+            );
+        }
+        else{
+            return(
+                <div>
+                    <button value="first" onClick={ (e) => this.getPage(e, "first") }>First</button>
+                    <button value="prev" onClick={ (e) => this.getPage(e, "prev") }>Prev</button>
+
+                    <button value="next" onClick={ (e) => this.getPage(e, "next") }>Next</button>
+                    <button value="last" onClick={ (e) => this.getPage(e, "last") }>Last</button>
+                </div>
+            );
+        }
     }
 
     render() {
@@ -65,6 +89,7 @@ class Notes extends Component {
             <div className="col-sm-6">
                 <h3>Notes</h3>
                 {noteItems}
+                {this.renderPageNav()}
             </div>
 
         );

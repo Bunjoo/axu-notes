@@ -49,6 +49,8 @@ class NoteController extends Controller
         $note->user_id  = $request->input('user_id');
 
         if($note->save()){
+            if( $request->isMethod('put'))
+                return new NoteResource($note);
             return NoteController::index();
         }
     }
