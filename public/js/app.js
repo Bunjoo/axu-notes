@@ -53862,6 +53862,15 @@ var Notes = function (_Component) {
                     'Notes'
                 ),
                 noteItems,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Page: ',
+                    this.props.meta.current_page,
+                    ' of ',
+                    this.props.meta.last_page,
+                    ' '
+                ),
                 this.renderPageNav()
             );
         }

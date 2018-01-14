@@ -89,6 +89,7 @@ class Notes extends Component {
             <div className="col-sm-6">
                 <h3>Notes</h3>
                 {noteItems}
+                <p>Page: {this.props.meta.current_page} of {this.props.meta.last_page} </p>
                 {this.renderPageNav()}
             </div>
 
