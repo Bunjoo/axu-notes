@@ -186,7 +186,6 @@ class Main extends Component {
             })
             .then(data => {
                 this.handleNotes(data);
-                console.log(data);
             });
 
 
@@ -199,7 +198,9 @@ class Main extends Component {
     render() {
         return (
             <div className="container">
-                <SearchBar onSearch={this.handleSearch.bind(this)}/>
+                <SearchBar
+                    onSearch={this.handleSearch.bind(this)}
+                />
                 <Notes notes={this.state.notes}
                        pages={this.state.pages}
                        meta={this.state.meta}
@@ -207,8 +208,14 @@ class Main extends Component {
                        clickNote={this.setNote.bind(this)}
                        getPages={this.handleGetPages.bind(this)}
                 />
-                <NoteItem note={this.state.note} onEditClick={this.handleEditNote.bind(this)} onDeleteClick={this.handleDeleteNote.bind(this)} />
-                <AddNote onSubmit={this.handleAddNote.bind(this)}/>
+                <NoteItem note={this.state.note}
+                          onEditClick={this.handleEditNote.bind(this)}
+                          onDeleteClick={this.handleDeleteNote.bind(this)}
+                />
+                <AddNote
+                    onSubmit={this.handleAddNote.bind(this)}
+                    note={this.state.note}
+                />
             </div>
         );
     }

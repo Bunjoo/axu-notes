@@ -38,7 +38,6 @@ class AddNote extends Component {
     }
 
     renderAddNote(){
-        console.log(this.state.addNote);
         if(this.state.addNote){
             let user_id = document.getElementsByName('user_id')[0].getAttribute('content');
 
@@ -75,9 +74,17 @@ class AddNote extends Component {
 
 
     render() {
+        let className;
+
+        if(this.props.note.id != null){
+            className = 'col-sm-12'
+        }
+        else{
+            className = 'col-sm-6'
+        }
 
         return (
-            <div className="col-sm-6">
+            <div className={className}>
 
                 {this.renderAddNote()}
 

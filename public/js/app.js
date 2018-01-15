@@ -7354,7 +7354,6 @@ var Main = function (_Component) {
                 return res.json();
             }).then(function (data) {
                 _this7.handleNotes(data);
-                console.log(data);
             });
         }
     }, {
@@ -7368,7 +7367,9 @@ var Main = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__SearchBar__["a" /* default */], { onSearch: this.handleSearch.bind(this) }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__SearchBar__["a" /* default */], {
+                    onSearch: this.handleSearch.bind(this)
+                }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Notes__["a" /* default */], { notes: this.state.notes,
                     pages: this.state.pages,
                     meta: this.state.meta,
@@ -7376,8 +7377,14 @@ var Main = function (_Component) {
                     clickNote: this.setNote.bind(this),
                     getPages: this.handleGetPages.bind(this)
                 }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__NoteItem__["a" /* default */], { note: this.state.note, onEditClick: this.handleEditNote.bind(this), onDeleteClick: this.handleDeleteNote.bind(this) }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AddNote__["a" /* default */], { onSubmit: this.handleAddNote.bind(this) })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__NoteItem__["a" /* default */], { note: this.state.note,
+                    onEditClick: this.handleEditNote.bind(this),
+                    onDeleteClick: this.handleDeleteNote.bind(this)
+                }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AddNote__["a" /* default */], {
+                    onSubmit: this.handleAddNote.bind(this),
+                    note: this.state.note
+                })
             );
         }
     }]);
@@ -54172,7 +54179,6 @@ var AddNote = function (_Component) {
     }, {
         key: 'renderAddNote',
         value: function renderAddNote() {
-            console.log(this.state.addNote);
             if (this.state.addNote) {
                 var user_id = document.getElementsByName('user_id')[0].getAttribute('content');
 
@@ -54234,10 +54240,17 @@ var AddNote = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var className = void 0;
+
+            if (this.props.note.id != null) {
+                className = 'col-sm-12';
+            } else {
+                className = 'col-sm-6';
+            }
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'col-sm-6' },
+                { className: className },
                 this.renderAddNote()
             );
         }
