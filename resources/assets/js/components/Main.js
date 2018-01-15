@@ -33,17 +33,19 @@ class Main extends Component {
         notes = [];
 
         if(input == null){
-            url = '/notes/public/api/notes';
+            url = '/notes/public/api/notes' + '?user_id=' + this.getUserID();
             fetch(url)
                 .then(res => {
                     return res.json();
                 })
                 .then(data => {
+
                     for (let i = 0; i < data.data.length; i++) {
                         notes.push(data.data[i]);
                     }
                     this.setState({pages:data.links});
                     this.setState({meta:data.meta});
+
                 });
         }else{
             for (let i = 0; i < input.data.length; i++) {
@@ -55,6 +57,7 @@ class Main extends Component {
         }
 
         this.setState({notes: notes});
+
     }
 
     setNote(data){
@@ -62,7 +65,7 @@ class Main extends Component {
     }
 
     handleDeleteNote(id){
-        let url = '/notes/public/api/note/' + id;
+        let url = '/notes/public/api/note/' + id + '?user_id=' + this.getUserID();
         let page;
 
         fetch(url, {method: 'DELETE'})
@@ -83,6 +86,7 @@ class Main extends Component {
 
     handleGetPages(value){
         let url;
+        let user_id =  '&user_id=' + this.getUserID();
         switch(value){
             case 'first':
                 url = this.state.pages.first;
@@ -100,7 +104,8 @@ class Main extends Component {
                 url = '/notes/public/api/notes?page=' + value;
         }
 
-        fetch(url)
+
+        fetch(url + user_id)
             .then(res => {
                 return res.json();
             })
@@ -115,8 +120,9 @@ class Main extends Component {
         } else {
 
             let page;
+            let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
 
-            fetch('/notes/public/api/note', {
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -132,14 +138,18 @@ class Main extends Component {
                     return res.json();
                 })
                 .then(data => {
-                    page = this.state.meta.last_page;
+                    page = data.meta.last_page;
+
+                    this.setState({pages:data.links});
+                    this.setState({meta:data.meta});
+
                     this.handleGetPages(page);
                 });
         }
     }
 
     handleEditNote(refs){
-        let url = '/notes/public/api/note';
+        let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
         let page;
 
         fetch(url, {
@@ -168,7 +178,7 @@ class Main extends Component {
 
     handleSearch(input){
 
-        let url = '/notes/public/api/notes?searchTerm=' + input;
+        let url = '/notes/public/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
 
         fetch(url)
             .then(res => {
@@ -180,6 +190,10 @@ class Main extends Component {
             });
 
 
+    }
+
+    getUserID(){
+        return document.getElementsByName('user_id')[0].getAttribute('content');
     }
 
     render() {

@@ -33,9 +33,13 @@ class Notes extends Component {
     }
 
     renderPageNav(){
-        if(this.props.meta.current_page == 1){
+        if(this.props.meta.current_page == 1 && this.props.meta.last_page == 1){
+
+        }
+        else if(this.props.meta.current_page == 1){
             return(
                 <div>
+                    <p>Page: {this.props.meta.current_page} of {this.props.meta.last_page} </p>
                     <button value="first" disabled onClick={ (e) => this.getPage(e, "first") }>First</button>
                     <button value="prev" disabled onClick={ (e) => this.getPage(e, "prev") }>Prev</button>
 
@@ -47,6 +51,7 @@ class Notes extends Component {
         else if(this.props.meta.current_page == this.props.meta.last_page){
             return(
                 <div>
+                    <p>Page: {this.props.meta.current_page} of {this.props.meta.last_page} </p>
                     <button value="first" onClick={ (e) => this.getPage(e, "first") }>First</button>
                     <button value="prev" onClick={ (e) => this.getPage(e, "prev") }>Prev</button>
 
@@ -58,6 +63,7 @@ class Notes extends Component {
         else{
             return(
                 <div>
+                    <p>Page: {this.props.meta.current_page} of {this.props.meta.last_page} </p>
                     <button value="first" onClick={ (e) => this.getPage(e, "first") }>First</button>
                     <button value="prev" onClick={ (e) => this.getPage(e, "prev") }>Prev</button>
 
@@ -69,9 +75,12 @@ class Notes extends Component {
     }
 
     render() {
-
         let noteItems;
-        if (this.props.notes) {
+        if(this.props.notes.length < 1){
+            noteItems = <p>You have no notes, why don't you add one?</p>
+
+        }
+        else{
             noteItems = this.props.notes.map(note => {
                 return (
                     <p key={note.id}>
@@ -89,7 +98,7 @@ class Notes extends Component {
             <div className="col-sm-6">
                 <h3>Notes</h3>
                 {noteItems}
-                <p>Page: {this.props.meta.current_page} of {this.props.meta.last_page} </p>
+
                 {this.renderPageNav()}
             </div>
 

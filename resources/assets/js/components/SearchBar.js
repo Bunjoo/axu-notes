@@ -14,11 +14,9 @@ class SearchBar extends Component {
 
         return (
             <div className="col-sm-12">
-                <h3> Search: </h3>
                 <form >
                     <div>
-                        <label> Search Title:  </label>
-                        <input type="text" ref="filterTextInput" onChange={this.handleChange.bind(this)}/>
+                        <input type="text" placeholder="Search notes..." ref="filterTextInput" onChange={this.handleChange.bind(this)}/>
                     </div>
                 </form>
             </div>

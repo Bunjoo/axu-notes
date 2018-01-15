@@ -6,43 +6,81 @@ import ReactDOM from 'react-dom';
 
 class AddNote extends Component {
 
+    constructor(props){
+        super(props);
+
+        this.state = {
+            addNote : false
+        }
+
+
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
         this.props.onSubmit(this.refs);
 
-
         console.log(this);
-        //this.refs.title.value = "";
-        //this.refs.body.value = "";
+        this.refs.title.value = "";
+        this.refs.body.value = "";
 
     }
+
+    handleNewNote(){
+        if(this.state.addNote == false){
+            this.setState({addNote: true});
+        }
+        else{
+            this.setState({addNote: false});
+        }
+
+    }
+
+    renderAddNote(){
+        console.log(this.state.addNote);
+        if(this.state.addNote){
+            let user_id = document.getElementsByName('user_id')[0].getAttribute('content');
+
+            return(
+                <div>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                        <h3> Add a Note </h3>
+                        <div>
+                            <label> title </label><br />
+                            <input type="text" ref="title"/>
+                        </div>
+
+                        <div>
+                            <label> Body </label><br />
+                            <textarea ref="body"/>
+                        </div>
+
+                        <div>
+                            <input type="hidden" value={user_id} ref="user_id"/>
+                        </div><br/>
+
+                        <input type="submit" value="Submit"/>
+                        <button onClick={this.handleNewNote.bind(this)}>Cancel</button>
+                    </form>
+                </div>
+            );
+        }
+        else{
+            return(
+                <h3 onClick={this.handleNewNote.bind(this)}> Add a new Note </h3>
+            );
+        }
+    }
+
 
     render() {
 
         return (
-            <div className="col-sm-12">
-                <h3> Add an Note </h3>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <div>
-                        <label> title </label><br />
-                        <input type="text" ref="title"/>
-                    </div>
+            <div className="col-sm-6">
 
-                    <div>
-                        <label> Body </label><br />
-                        <textarea ref="body"/>
-                    </div>
+                {this.renderAddNote()}
 
-                    <div>
-                        <label>User ID:</label><br />
-                        <input type="text" ref="user_id"/>
-                    </div><br/>
-
-                    <input type="submit" value="Submit"/>
-
-
-                </form>
             </div>
         );
     }

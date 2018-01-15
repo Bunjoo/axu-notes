@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Note;
 use App\Http\Resources\Note as NoteResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class NoteController extends Controller
@@ -13,7 +14,12 @@ class NoteController extends Controller
 
     public function __construct()
     {
-        //$this->middleware('auth');
+        //$this->middleware('auth:api');
+//        $this->middleware(function ($request, $next) {
+//            info(Auth::user());
+//
+//            return $next($request);
+//        });
     }
 
     /**
@@ -26,21 +32,24 @@ class NoteController extends Controller
 
         //$userNotes = Note::popular()->orderBy('created_at')->get()->paginate(15);
 
-//        $userNotes = Note::paginate(15);
-
-
         //$userNotes = Note::where('user_id',4)->paginate(15);
 
 //        $userNotes = Note::getUserNotes();
 //
+        //info(Auth::user());
+
+
+
         $input = Input::get('searchTerm');
+        $user_id= Input::get('user_id');
+
+
 
         if($input == null){
-            info("IS NULL");
-            $userNotes = Note::where('user_id',4)->paginate(15);
+            $userNotes = Note::where('user_id',$user_id)->paginate(5);
         }else{
 
-            $userNotes = Note::where('user_id',4)->where('title', 'LIKE', '%'.$input.'%')->paginate(15);
+            $userNotes = Note::where('user_id',$user_id)->where('title', 'LIKE', '%'.$input.'%')->paginate(15);
         }
 
         return NoteResource::collection($userNotes);

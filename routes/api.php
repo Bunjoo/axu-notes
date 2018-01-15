@@ -18,6 +18,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+//Route::middleware('auth:api')->get('/notes', 'NoteController@index');
+
+//Route::group(['middleware' => ['auth:api']], function () {
+//    Route::get('notes', 'NoteController@index');
+//});
+//
+//Route::group(['middleware' => ['auth:api']], function () {
+//    Route::get('/test', function (Request $request) {
+//        return response()->json(['name' => 'test']);
+//    });
+//});
 
 // List Articles
 Route::get('notes','NoteController@index');

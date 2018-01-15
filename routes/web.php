@@ -11,19 +11,21 @@
 |
 */
 
-Route::get('/notes', function () {
-    return view('notes');
-})->name('notes');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 Auth::routes();
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+
+Route::get('/notes', function () {
+    return view('notes');
+})->middleware('auth');
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 //Route::post('/register', 'HomeController@create');

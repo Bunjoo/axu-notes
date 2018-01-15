@@ -7205,10 +7205,11 @@ var Main = function (_Component) {
             notes = [];
 
             if (input == null) {
-                url = '/notes/public/api/notes';
+                url = '/notes/public/api/notes' + '?user_id=' + this.getUserID();
                 fetch(url).then(function (res) {
                     return res.json();
                 }).then(function (data) {
+
                     for (var i = 0; i < data.data.length; i++) {
                         notes.push(data.data[i]);
                     }
@@ -7236,7 +7237,7 @@ var Main = function (_Component) {
         value: function handleDeleteNote(id) {
             var _this3 = this;
 
-            var url = '/notes/public/api/note/' + id;
+            var url = '/notes/public/api/note/' + id + '?user_id=' + this.getUserID();
             var page = void 0;
 
             fetch(url, { method: 'DELETE' }).then(function (res) {
@@ -7255,6 +7256,7 @@ var Main = function (_Component) {
             var _this4 = this;
 
             var url = void 0;
+            var user_id = '&user_id=' + this.getUserID();
             switch (value) {
                 case 'first':
                     url = this.state.pages.first;
@@ -7272,7 +7274,7 @@ var Main = function (_Component) {
                     url = '/notes/public/api/notes?page=' + value;
             }
 
-            fetch(url).then(function (res) {
+            fetch(url + user_id).then(function (res) {
                 return res.json();
             }).then(function (data) {
                 _this4.handleNotes(data);
@@ -7288,8 +7290,9 @@ var Main = function (_Component) {
             } else {
 
                 var page = void 0;
+                var url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
 
-                fetch('/notes/public/api/note', {
+                fetch(url, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -7303,7 +7306,11 @@ var Main = function (_Component) {
                 }).then(function (res) {
                     return res.json();
                 }).then(function (data) {
-                    page = _this5.state.meta.last_page;
+                    page = data.meta.last_page;
+
+                    _this5.setState({ pages: data.links });
+                    _this5.setState({ meta: data.meta });
+
                     _this5.handleGetPages(page);
                 });
             }
@@ -7313,7 +7320,7 @@ var Main = function (_Component) {
         value: function handleEditNote(refs) {
             var _this6 = this;
 
-            var url = '/notes/public/api/note';
+            var url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
             var page = void 0;
 
             fetch(url, {
@@ -7341,7 +7348,7 @@ var Main = function (_Component) {
         value: function handleSearch(input) {
             var _this7 = this;
 
-            var url = '/notes/public/api/notes?searchTerm=' + input;
+            var url = '/notes/public/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
 
             fetch(url).then(function (res) {
                 return res.json();
@@ -7349,6 +7356,11 @@ var Main = function (_Component) {
                 _this7.handleNotes(data);
                 console.log(data);
             });
+        }
+    }, {
+        key: 'getUserID',
+        value: function getUserID() {
+            return document.getElementsByName('user_id')[0].getAttribute('content');
         }
     }, {
         key: 'render',
@@ -53743,10 +53755,19 @@ var Notes = function (_Component) {
         value: function renderPageNav() {
             var _this3 = this;
 
-            if (this.props.meta.current_page == 1) {
+            if (this.props.meta.current_page == 1 && this.props.meta.last_page == 1) {} else if (this.props.meta.current_page == 1) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'p',
+                        null,
+                        'Page: ',
+                        this.props.meta.current_page,
+                        ' of ',
+                        this.props.meta.last_page,
+                        ' '
+                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { value: 'first', disabled: true, onClick: function onClick(e) {
@@ -53781,6 +53802,15 @@ var Notes = function (_Component) {
                     'div',
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'p',
+                        null,
+                        'Page: ',
+                        this.props.meta.current_page,
+                        ' of ',
+                        this.props.meta.last_page,
+                        ' '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { value: 'first', onClick: function onClick(e) {
                                 return _this3.getPage(e, "first");
@@ -53813,6 +53843,15 @@ var Notes = function (_Component) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'p',
+                        null,
+                        'Page: ',
+                        this.props.meta.current_page,
+                        ' of ',
+                        this.props.meta.last_page,
+                        ' '
+                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { value: 'first', onClick: function onClick(e) {
@@ -53850,7 +53889,13 @@ var Notes = function (_Component) {
             var _this4 = this;
 
             var noteItems = void 0;
-            if (this.props.notes) {
+            if (this.props.notes.length < 1) {
+                noteItems = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'You have no notes, why don\'t you add one?'
+                );
+            } else {
                 noteItems = this.props.notes.map(function (note) {
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'p',
@@ -53879,15 +53924,6 @@ var Notes = function (_Component) {
                     'Notes'
                 ),
                 noteItems,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'p',
-                    null,
-                    'Page: ',
-                    this.props.meta.current_page,
-                    ' of ',
-                    this.props.meta.last_page,
-                    ' '
-                ),
                 this.renderPageNav()
             );
         }
@@ -54101,10 +54137,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AddNote = function (_Component) {
     _inherits(AddNote, _Component);
 
-    function AddNote() {
+    function AddNote(props) {
         _classCallCheck(this, AddNote);
 
-        return _possibleConstructorReturn(this, (AddNote.__proto__ || Object.getPrototypeOf(AddNote)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (AddNote.__proto__ || Object.getPrototypeOf(AddNote)).call(this, props));
+
+        _this.state = {
+            addNote: false
+        };
+
+        return _this;
     }
 
     _createClass(AddNote, [{
@@ -54115,8 +54157,79 @@ var AddNote = function (_Component) {
             this.props.onSubmit(this.refs);
 
             console.log(this);
-            //this.refs.title.value = "";
-            //this.refs.body.value = "";
+            this.refs.title.value = "";
+            this.refs.body.value = "";
+        }
+    }, {
+        key: 'handleNewNote',
+        value: function handleNewNote() {
+            if (this.state.addNote == false) {
+                this.setState({ addNote: true });
+            } else {
+                this.setState({ addNote: false });
+            }
+        }
+    }, {
+        key: 'renderAddNote',
+        value: function renderAddNote() {
+            console.log(this.state.addNote);
+            if (this.state.addNote) {
+                var user_id = document.getElementsByName('user_id')[0].getAttribute('content');
+
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        { onSubmit: this.handleSubmit.bind(this) },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h3',
+                            null,
+                            ' Add a Note '
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            null,
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                ' title '
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'title' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            null,
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                ' Body '
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { ref: 'body' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            null,
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', value: user_id, ref: 'user_id' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Submit' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { onClick: this.handleNewNote.bind(this) },
+                            'Cancel'
+                        )
+                    )
+                );
+            } else {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h3',
+                    { onClick: this.handleNewNote.bind(this) },
+                    ' Add a new Note '
+                );
+            }
         }
     }, {
         key: 'render',
@@ -54124,51 +54237,8 @@ var AddNote = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'col-sm-12' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h3',
-                    null,
-                    ' Add an Note '
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'form',
-                    { onSubmit: this.handleSubmit.bind(this) },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'label',
-                            null,
-                            ' title '
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'title' })
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'label',
-                            null,
-                            ' Body '
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { ref: 'body' })
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'label',
-                            null,
-                            'User ID:'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'user_id' })
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Submit' })
-                )
+                { className: 'col-sm-6' },
+                this.renderAddNote()
             );
         }
     }]);
@@ -54223,22 +54293,12 @@ var SearchBar = function (_Component) {
                 'div',
                 { className: 'col-sm-12' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h3',
-                    null,
-                    ' Search: '
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'form',
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'label',
-                            null,
-                            ' Search Title:  '
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', ref: 'filterTextInput', onChange: this.handleChange.bind(this) })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Search notes...', ref: 'filterTextInput', onChange: this.handleChange.bind(this) })
                     )
                 )
             );
