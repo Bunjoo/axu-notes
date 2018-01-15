@@ -17,7 +17,9 @@ class Note extends Model
 
     public function scopeGetUserNotes($query)
     {
-        return $query->where('user_id', 4)->paginate(15);
+
+//        info($query);
+  //      return $query->where('user_id', 4)->paginate(15);
 
     }
 

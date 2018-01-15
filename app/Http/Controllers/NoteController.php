@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Note;
 use App\Http\Resources\Note as NoteResource;
+use Illuminate\Support\Facades\Input;
 
 class NoteController extends Controller
 {
@@ -27,9 +28,20 @@ class NoteController extends Controller
 
 //        $userNotes = Note::paginate(15);
 
+
         //$userNotes = Note::where('user_id',4)->paginate(15);
 
-        $userNotes = Note::getUserNotes();
+//        $userNotes = Note::getUserNotes();
+//
+        $input = Input::get('searchTerm');
+
+        if($input == null){
+            info("IS NULL");
+            $userNotes = Note::where('user_id',4)->paginate(15);
+        }else{
+
+            $userNotes = Note::where('user_id',4)->where('title', 'LIKE', '%'.$input.'%')->paginate(15);
+        }
 
         return NoteResource::collection($userNotes);
     }

@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import Notes from './Notes';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
+import SearchBar from './SearchBar';
 
 /* An example React component */
 class Main extends Component {
@@ -165,9 +166,26 @@ class Main extends Component {
 
     }
 
+    handleSearch(input){
+
+        let url = '/notes/public/api/notes?searchTerm=' + input;
+
+        fetch(url)
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                this.handleNotes(data);
+                console.log(data);
+            });
+
+
+    }
+
     render() {
         return (
             <div className="container">
+                <SearchBar onSearch={this.handleSearch.bind(this)}/>
                 <Notes notes={this.state.notes}
                        pages={this.state.pages}
                        meta={this.state.meta}
