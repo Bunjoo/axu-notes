@@ -11,12 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/notes', function () {
+    return view('notes');
+})->name('notes');
 
-Route::get('/w', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', 'RegistrationController@create');
+
+Auth::routes();
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::post('/register', 'HomeController@create');

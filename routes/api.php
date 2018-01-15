@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
 // List Articles
 Route::get('notes','NoteController@index');
 
@@ -32,11 +34,3 @@ Route::put('note','NoteController@store');
 // Delete Article
 Route::delete('note/{id}','NoteController@destroy');
 
-// Register a User
-Route::get('/signup', 'RegisterController@create');
-// Route::get('/login', 'RegistrationController@create');
-
-// User login
-Route::get('/login', 'AuthController@login');
-//OR:
-// Route::get('/login', 'SessionsController@create');

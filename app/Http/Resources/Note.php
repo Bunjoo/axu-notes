@@ -28,7 +28,6 @@ class Note extends Resource
 
     public function with($request){
         return [
-            'user_id' => $this->user_id,
             'profile' => $this->user
         ];
     }
