@@ -77,7 +77,7 @@ class Notes extends Component {
     render() {
         let noteItems;
         if(this.props.notes.length < 1){
-            noteItems = <p>You have no notes, why don't you add one?</p>
+            noteItems = <p>No notes found.</p>
 
         }
         else{

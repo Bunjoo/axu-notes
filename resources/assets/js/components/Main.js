@@ -61,8 +61,9 @@ class Main extends Component {
 
     }
 
-    setNote(data) {
+    handleNoteClick(data) {
         this.setState({note: data.data});
+        this.setState({addNote:false})
     }
 
     handleDeleteNote(id) {
@@ -170,7 +171,7 @@ class Main extends Component {
                 return res.json();
             })
             .then(data => {
-                this.setNote(data);
+                this.handleNoteClick(data);
                 page = this.state.meta.current_page;
                 this.handleGetPages(page);
             });
@@ -221,7 +222,7 @@ class Main extends Component {
                             pages={this.state.pages}
                             meta={this.state.meta}
                             getNotes={this.handleNotes.bind(this)}
-                            clickNote={this.setNote.bind(   this)}
+                            clickNote={this.handleNoteClick.bind(   this)}
                             getPages={this.handleGetPages.bind(this)}
                         />
                     </div>

@@ -17,15 +17,10 @@
 Auth::routes();
 
 
-
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-
 Route::get('/notes', function () {
     return view('notes');
 })->middleware('auth');
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-//Route::post('/register', 'HomeController@create');
+    return view('notes');
+})->middleware('auth');

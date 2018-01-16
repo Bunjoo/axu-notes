@@ -7229,9 +7229,10 @@ var Main = function (_Component) {
             this.setState({ notes: notes });
         }
     }, {
-        key: 'setNote',
-        value: function setNote(data) {
+        key: 'handleNoteClick',
+        value: function handleNoteClick(data) {
             this.setState({ note: data.data });
+            this.setState({ addNote: false });
         }
     }, {
         key: 'handleDeleteNote',
@@ -7339,7 +7340,7 @@ var Main = function (_Component) {
             }).then(function (res) {
                 return res.json();
             }).then(function (data) {
-                _this6.setNote(data);
+                _this6.handleNoteClick(data);
                 page = _this6.state.meta.current_page;
                 _this6.handleGetPages(page);
             });
@@ -7394,7 +7395,7 @@ var Main = function (_Component) {
                             pages: this.state.pages,
                             meta: this.state.meta,
                             getNotes: this.handleNotes.bind(this),
-                            clickNote: this.setNote.bind(this),
+                            clickNote: this.handleNoteClick.bind(this),
                             getPages: this.handleGetPages.bind(this)
                         })
                     ),
@@ -53929,7 +53930,7 @@ var Notes = function (_Component) {
                 noteItems = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
                     null,
-                    'You have no notes, why don\'t you add one?'
+                    'No notes found.'
                 );
             } else {
                 noteItems = this.props.notes.map(function (note) {
@@ -54202,7 +54203,7 @@ var AddNote = function (_Component) {
     }, {
         key: 'renderAddNote',
         value: function renderAddNote() {
-            if (this.props.addNote) {
+            if (this.props.addNote == true) {
                 var user_id = document.getElementsByName('user_id')[0].getAttribute('content');
 
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -54256,7 +54257,11 @@ var AddNote = function (_Component) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
                     { onClick: this.handleNewNote.bind(this), type: 'button', className: 'btn btn-default btn-sm' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'glyphicon glyphicon-plus' })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'addButt' },
+                        '+'
+                    )
                 );
             }
         }

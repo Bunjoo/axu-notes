@@ -28,7 +28,7 @@ class AddNote extends Component {
     }
 
     renderAddNote(){
-        if(this.props.addNote){
+        if(this.props.addNote == true){
             let user_id = document.getElementsByName('user_id')[0].getAttribute('content');
 
             return(
@@ -58,7 +58,7 @@ class AddNote extends Component {
         else{
             return(
                 <button onClick={this.handleNewNote.bind(this)} type="button" className="btn btn-default btn-sm">
-                    <span className="glyphicon glyphicon-plus"></span>
+                    <span className="addButt">+</span>
                 </button>
             );
         }
