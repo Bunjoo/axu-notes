@@ -16,5 +16,4 @@ mix.react('resources/assets/js/app.js', 'public/js')
 
 mix.setPublicPath('./');
 
-mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');
 
