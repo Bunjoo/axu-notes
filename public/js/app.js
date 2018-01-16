@@ -7322,7 +7322,7 @@ var Main = function (_Component) {
         value: function handleEditNote(refs) {
             var _this6 = this;
 
-            if (refs.title.value === '') {
+            if (refs.title.value == '') {
                 alert('A title is required');
             } else {
                 var url = '/api/note' + '?user_id=' + this.getUserID();

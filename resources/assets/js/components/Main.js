@@ -151,7 +151,7 @@ class Main extends Component {
     }
 
     handleEditNote(refs) {
-        if (refs.title.value === '') {
+        if (refs.title.value == '') {
             alert('A title is required');
         } else {
             let url = '/api/note' + '?user_id=' + this.getUserID();
