@@ -54102,7 +54102,7 @@ var NoteItem = function (_Component) {
                 }
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'col-sm-6' },
+                    { className: 'col-sm-12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'h3',
                         null,
