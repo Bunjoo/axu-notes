@@ -10,8 +10,6 @@ class AddNote extends Component {
         e.preventDefault();
 
         this.props.onSubmit(this.refs);
-
-        console.log(this);
         this.refs.title.value = "";
         this.refs.body.value = "";
 
