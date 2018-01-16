@@ -7325,28 +7325,32 @@ var Main = function (_Component) {
         value: function handleEditNote(refs) {
             var _this6 = this;
 
-            var url = this.APIurl + 'note' + '?user_id=' + this.getUserID();
-            var page = void 0;
+            if (refs.title.value == '') {
+                alert('A title is required');
+            } else {
+                var url = this.APIurl + 'note' + '?user_id=' + this.getUserID();
+                var page = void 0;
 
-            fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'note_id': this.state.note.id,
-                    'title': refs.title.value,
-                    'body': refs.body.value,
-                    'user_id': this.state.note.user_id
-                })
-            }).then(function (res) {
-                return res.json();
-            }).then(function (data) {
-                _this6.handleNoteClick(data);
-                page = _this6.state.meta.current_page;
-                _this6.handleGetPages(page);
-            });
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'note_id': this.state.note.id,
+                        'title': refs.title.value,
+                        'body': refs.body.value,
+                        'user_id': this.state.note.user_id
+                    })
+                }).then(function (res) {
+                    return res.json();
+                }).then(function (data) {
+                    _this6.handleNoteClick(data);
+                    page = _this6.state.meta.current_page;
+                    _this6.handleGetPages(page);
+                });
+            }
         }
     }, {
         key: 'handleSearch',
