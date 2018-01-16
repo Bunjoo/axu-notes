@@ -53,7 +53,10 @@ visit your localhost to see your new notes app!
 
 ## Built With
 
-* [Laravel 5.5](https://laravel.com/) - PHP Framework
-* [REACTjs](https://reactjs.org/) - Javascript library
-* [Composer](https://getcomposer.org/) - Dependency manager for PHP
-* [XAMPP](https://www.apachefriends.org/index.html) - Local hosted server
+* [Laravel 5.5](https://laravel.com/) - API,Users
+* [Composer](https://getcomposer.org/) - Dependency manager
+* [XAMPP](https://www.apachefriends.org/index.html)
+* [REACTjs](https://reactjs.org/)
+* [Bootstrap](https://getbootstrap.com/)
+* [Heroku](http://herokuapp.com/)
+* [JawsDB on Heroku](https://elements.heroku.com/addons/jawsdb-maria)
