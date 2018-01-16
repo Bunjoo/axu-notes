@@ -22,7 +22,6 @@ return [
 
     'default' => 'mysql',
 
-    //'default' => parse_url(getenv('JAWSDB_MARIA_URL')),
     /*
     |--------------------------------------------------------------------------
     | Database Connections

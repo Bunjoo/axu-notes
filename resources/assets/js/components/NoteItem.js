@@ -68,7 +68,7 @@ class NoteItem extends Component {
                 return this.renderEditNote();
             }
             return (
-                <div className="col-sm-6">
+                <div className="col-sm-12">
                     <h3>{this.props.note.title}</h3>
                     <p>{this.props.note.body}</p>
 
