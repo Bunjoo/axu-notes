@@ -151,31 +151,34 @@ class Main extends Component {
     }
 
     handleEditNote(refs) {
-        let url = '/api/note' + '?user_id=' + this.getUserID();
-        let page;
+        if (refs.title.value === '') {
+            alert('A title is required');
+        } else {
+            let url = '/api/note' + '?user_id=' + this.getUserID();
+            let page;
 
-        fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'note_id': this.state.note.id,
-                'title': refs.title.value,
-                'body': refs.body.value,
-                'user_id': this.state.note.user_id
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'note_id': this.state.note.id,
+                    'title': refs.title.value,
+                    'body': refs.body.value,
+                    'user_id': this.state.note.user_id
+                })
             })
-        })
-            .then(res => {
-                return res.json();
-            })
-            .then(data => {
-                this.handleNoteClick(data);
-                page = this.state.meta.current_page;
-                this.handleGetPages(page);
-            });
-
+                .then(res => {
+                    return res.json();
+                })
+                .then(data => {
+                    this.handleNoteClick(data);
+                    page = this.state.meta.current_page;
+                    this.handleGetPages(page);
+                });
+        }
     }
 
     handleSearch(input) {
