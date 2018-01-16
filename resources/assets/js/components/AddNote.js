@@ -6,16 +6,6 @@ import ReactDOM from 'react-dom';
 
 class AddNote extends Component {
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            addNote : false
-        }
-
-
-    }
-
     handleSubmit(e) {
         e.preventDefault();
 
@@ -28,17 +18,17 @@ class AddNote extends Component {
     }
 
     handleNewNote(){
-        if(this.state.addNote == false){
-            this.setState({addNote: true});
+        if(this.props.addNote == false){
+            this.props.onAddClick();
         }
         else{
-            this.setState({addNote: false});
+            this.props.onAddClick();
         }
 
     }
 
     renderAddNote(){
-        if(this.state.addNote){
+        if(this.props.addNote){
             let user_id = document.getElementsByName('user_id')[0].getAttribute('content');
 
             return(
@@ -67,7 +57,9 @@ class AddNote extends Component {
         }
         else{
             return(
-                <h3 onClick={this.handleNewNote.bind(this)}> Add a new Note </h3>
+                <button onClick={this.handleNewNote.bind(this)} type="button" className="btn btn-default btn-sm">
+                    <span className="glyphicon glyphicon-plus"></span>
+                </button>
             );
         }
     }
@@ -76,16 +68,15 @@ class AddNote extends Component {
     render() {
         let className;
 
-        if(this.props.note.id != null){
+        if(this.props.addNote == true){
             className = "col-sm-12"
         }
         else{
-            className = "col-sm-12"
+            className = "col-sm-offset-11   col-sm-1"
         }
 
         return (
-            <div className="col-sm-12">
-                <p>Plus icon: <span className="glyphicon glyphicon-plus"></span></p>
+            <div className={className}>
                 {this.renderAddNote()}
 
             </div>

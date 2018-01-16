@@ -7184,7 +7184,8 @@ var Main = function (_Component) {
             notes: [],
             note: {},
             pages: [],
-            meta: []
+            meta: [],
+            addNote: false
         };
         return _this;
     }
@@ -7362,32 +7363,18 @@ var Main = function (_Component) {
             return document.getElementsByName('user_id')[0].getAttribute('content');
         }
     }, {
+        key: 'handleClickAdd',
+        value: function handleClickAdd() {
+            if (this.state.addNote == false) {
+                this.setState({ addNote: true });
+                this.setState({ note: [] });
+            } else {
+                this.setState({ addNote: false });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-
-            //    <SearchBar
-            //        onSearch={this.handleSearch.bind(this)}
-            //
-            //    />
-            //    <Notes
-            //    notes={this.state.notes}
-            //    pages={this.state.pages}
-            //    meta={this.state.meta}
-            //    getNotes={this.handleNotes.bind(this)}
-            //    clickNote={this.setNote.bind(   this)}
-            //    getPages={this.handleGetPages.bind(this)}
-            ///>
-
-            //    <NoteItem
-            //        note={this.state.note}
-            //        onEditClick={this.handleEditNote.bind(this)}
-            //        onDeleteClick={this.handleDeleteNote.bind(this)}
-            //    />
-            //    <AddNote
-            //    onSubmit={this.handleAddNote.bind(this)}
-            //    note={this.state.note}
-            ///>
-
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
@@ -7416,7 +7403,9 @@ var Main = function (_Component) {
                         { className: 'rightside col-md-6' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AddNote__["a" /* default */], {
                             onSubmit: this.handleAddNote.bind(this),
-                            note: this.state.note
+                            note: this.state.note,
+                            addNote: this.state.addNote,
+                            onAddClick: this.handleClickAdd.bind(this)
                         }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__NoteItem__["a" /* default */], {
                             note: this.state.note,
@@ -54184,16 +54173,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AddNote = function (_Component) {
     _inherits(AddNote, _Component);
 
-    function AddNote(props) {
+    function AddNote() {
         _classCallCheck(this, AddNote);
 
-        var _this = _possibleConstructorReturn(this, (AddNote.__proto__ || Object.getPrototypeOf(AddNote)).call(this, props));
-
-        _this.state = {
-            addNote: false
-        };
-
-        return _this;
+        return _possibleConstructorReturn(this, (AddNote.__proto__ || Object.getPrototypeOf(AddNote)).apply(this, arguments));
     }
 
     _createClass(AddNote, [{
@@ -54210,16 +54193,16 @@ var AddNote = function (_Component) {
     }, {
         key: 'handleNewNote',
         value: function handleNewNote() {
-            if (this.state.addNote == false) {
-                this.setState({ addNote: true });
+            if (this.props.addNote == false) {
+                this.props.onAddClick();
             } else {
-                this.setState({ addNote: false });
+                this.props.onAddClick();
             }
         }
     }, {
         key: 'renderAddNote',
         value: function renderAddNote() {
-            if (this.state.addNote) {
+            if (this.props.addNote) {
                 var user_id = document.getElementsByName('user_id')[0].getAttribute('content');
 
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -54271,9 +54254,9 @@ var AddNote = function (_Component) {
                 );
             } else {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h3',
-                    { onClick: this.handleNewNote.bind(this) },
-                    ' Add a new Note '
+                    'button',
+                    { onClick: this.handleNewNote.bind(this), type: 'button', className: 'btn btn-default btn-sm' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'glyphicon glyphicon-plus' })
                 );
             }
         }
@@ -54282,21 +54265,15 @@ var AddNote = function (_Component) {
         value: function render() {
             var className = void 0;
 
-            if (this.props.note.id != null) {
+            if (this.props.addNote == true) {
                 className = "col-sm-12";
             } else {
-                className = "col-sm-12";
+                className = "col-sm-offset-11   col-sm-1";
             }
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'col-sm-12' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'p',
-                    null,
-                    'Plus icon: ',
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'glyphicon glyphicon-plus' })
-                ),
+                { className: className },
                 this.renderAddNote()
             );
         }

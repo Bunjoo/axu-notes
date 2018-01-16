@@ -18,7 +18,8 @@ class Main extends Component {
             notes: [],
             note: {},
             pages: [],
-            meta: []
+            meta: [],
+            addNote: false
         }
     }
 
@@ -195,32 +196,17 @@ class Main extends Component {
         return document.getElementsByName('user_id')[0].getAttribute('content');
     }
 
+    handleClickAdd(){
+        if(this.state.addNote == false){
+            this.setState({addNote:true});
+            this.setState({note:[]})
+        }
+        else{
+            this.setState({addNote:false});
+        }
+    }
+
     render() {
-
-
-    //    <SearchBar
-    //        onSearch={this.handleSearch.bind(this)}
-    //
-    //    />
-    //    <Notes
-    //    notes={this.state.notes}
-    //    pages={this.state.pages}
-    //    meta={this.state.meta}
-    //    getNotes={this.handleNotes.bind(this)}
-    //    clickNote={this.setNote.bind(   this)}
-    //    getPages={this.handleGetPages.bind(this)}
-    ///>
-
-    //    <NoteItem
-    //        note={this.state.note}
-    //        onEditClick={this.handleEditNote.bind(this)}
-    //        onDeleteClick={this.handleDeleteNote.bind(this)}
-    //    />
-    //    <AddNote
-    //    onSubmit={this.handleAddNote.bind(this)}
-    //    note={this.state.note}
-    ///>
-
 
         return (
             <div className="container">
@@ -243,6 +229,8 @@ class Main extends Component {
                         <AddNote
                             onSubmit={this.handleAddNote.bind(this)}
                             note={this.state.note}
+                            addNote={this.state.addNote}
+                            onAddClick={this.handleClickAdd.bind(this)}
                         />
                         <NoteItem
                             note={this.state.note}
