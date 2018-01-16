@@ -31,18 +31,18 @@ git checkout local-dev
 Composer install
 ```
 
+##Database Setup
+
+go to localhost/phpmyadmin create a new database called 'notes'
+
+make a copy of the file **.env.example** and name it **.env**
+
+replace `DB_DATABASE` with 'notes' and change `DB_USERNAME` and `DB_PASSWORD` with your database username and password
+
 ```
 php artisan key:generate
 ```
 
-##Database Setup
-go to localhost/phpmyadmin create a new database called 'notes'
-
-make a copy of .env.example and name it .env
-
-replace `DB_USERNAME` and `DB_PASSWORD` with your database username and password
-
-In Terminal:
 ```
 php artisan migrate
 ```

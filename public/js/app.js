@@ -7181,9 +7181,7 @@ var Main = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 
         _this.path = window.location.pathname;
-
-        _this.APIurl = _this.path + '/api/'; // '/notes/public/api/'
-
+        _this.APIurl = _this.path + '/api/';
 
         _this.state = {
             notes: [],
