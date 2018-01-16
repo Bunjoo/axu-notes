@@ -31,6 +31,7 @@ git checkout local-dev
 Composer install
 ```
 
+
 ##Database Setup
 
 go to localhost/phpmyadmin create a new database called 'notes'
