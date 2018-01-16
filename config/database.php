@@ -15,7 +15,7 @@ return [
 
     //'default' => env('DB_CONNECTION', 'mysql'),
 
-    'default' => parse_url(getenv("JAWSDB_MARIA_URL"),'mysql'),
+    'default' => parse_url(getenv("JAWSDB_MARIA_URL")),
     /*
     |--------------------------------------------------------------------------
     | Database Connections
