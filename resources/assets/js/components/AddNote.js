@@ -77,15 +77,15 @@ class AddNote extends Component {
         let className;
 
         if(this.props.note.id != null){
-            className = 'col-sm-12'
+            className = "col-sm-12"
         }
         else{
-            className = 'col-sm-6'
+            className = "col-sm-12"
         }
 
         return (
-            <div className={className}>
-
+            <div className="col-sm-12">
+                <p>Plus icon: <span className="glyphicon glyphicon-plus"></span></p>
                 {this.renderAddNote()}
 
             </div>

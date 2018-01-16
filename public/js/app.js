@@ -7364,27 +7364,67 @@ var Main = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+
+            //    <SearchBar
+            //        onSearch={this.handleSearch.bind(this)}
+            //
+            //    />
+            //    <Notes
+            //    notes={this.state.notes}
+            //    pages={this.state.pages}
+            //    meta={this.state.meta}
+            //    getNotes={this.handleNotes.bind(this)}
+            //    clickNote={this.setNote.bind(   this)}
+            //    getPages={this.handleGetPages.bind(this)}
+            ///>
+
+            //    <NoteItem
+            //        note={this.state.note}
+            //        onEditClick={this.handleEditNote.bind(this)}
+            //        onDeleteClick={this.handleDeleteNote.bind(this)}
+            //    />
+            //    <AddNote
+            //    onSubmit={this.handleAddNote.bind(this)}
+            //    note={this.state.note}
+            ///>
+
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__SearchBar__["a" /* default */], {
-                    onSearch: this.handleSearch.bind(this)
-                }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Notes__["a" /* default */], { notes: this.state.notes,
-                    pages: this.state.pages,
-                    meta: this.state.meta,
-                    getNotes: this.handleNotes.bind(this),
-                    clickNote: this.setNote.bind(this),
-                    getPages: this.handleGetPages.bind(this)
-                }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__NoteItem__["a" /* default */], { note: this.state.note,
-                    onEditClick: this.handleEditNote.bind(this),
-                    onDeleteClick: this.handleDeleteNote.bind(this)
-                }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AddNote__["a" /* default */], {
-                    onSubmit: this.handleAddNote.bind(this),
-                    note: this.state.note
-                })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'leftside col-md-6' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__SearchBar__["a" /* default */], {
+                            onSearch: this.handleSearch.bind(this)
+
+                        }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Notes__["a" /* default */], {
+                            notes: this.state.notes,
+                            pages: this.state.pages,
+                            meta: this.state.meta,
+                            getNotes: this.handleNotes.bind(this),
+                            clickNote: this.setNote.bind(this),
+                            getPages: this.handleGetPages.bind(this)
+                        })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'rightside col-md-6' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AddNote__["a" /* default */], {
+                            onSubmit: this.handleAddNote.bind(this),
+                            note: this.state.note
+                        }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__NoteItem__["a" /* default */], {
+                            note: this.state.note,
+                            onEditClick: this.handleEditNote.bind(this),
+                            onDeleteClick: this.handleDeleteNote.bind(this)
+                        })
+                    )
+                )
             );
         }
     }]);
@@ -53924,7 +53964,7 @@ var Notes = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'col-sm-6' },
+                { className: 'col-sm-12' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h3',
                     null,
@@ -54009,7 +54049,7 @@ var NoteItem = function (_Component) {
             if (this.state.isEditing) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'col-sm-6' },
+                    { className: 'col-sm-12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'h2',
                         null,
@@ -54243,14 +54283,20 @@ var AddNote = function (_Component) {
             var className = void 0;
 
             if (this.props.note.id != null) {
-                className = 'col-sm-12';
+                className = "col-sm-12";
             } else {
-                className = 'col-sm-6';
+                className = "col-sm-12";
             }
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: className },
+                { className: 'col-sm-12' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Plus icon: ',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'glyphicon glyphicon-plus' })
+                ),
                 this.renderAddNote()
             );
         }

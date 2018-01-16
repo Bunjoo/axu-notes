@@ -1,0 +1,17 @@
+body{
+    background: white;
+}
+
+.container{
+    background: yellow;
+}
+
+.leftside{
+    background: blue;
+}
+
+.rightside{
+    background: pink;
+}
+
+

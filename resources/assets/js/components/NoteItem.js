@@ -38,7 +38,7 @@ class NoteItem extends Component {
 
         if (this.state.isEditing) {
             return (
-                <div className="col-sm-6">
+                <div className="col-sm-12">
                     <h2>Edit Note </h2>
 
                     <form onSubmit={this.handleEdit.bind(this)}>

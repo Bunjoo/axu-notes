@@ -95,7 +95,7 @@ class Notes extends Component {
         }
 
         return (
-            <div className="col-sm-6">
+            <div className="col-sm-12">
                 <h3>Notes</h3>
                 {noteItems}
 

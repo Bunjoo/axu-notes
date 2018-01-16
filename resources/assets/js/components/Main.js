@@ -26,13 +26,13 @@ class Main extends Component {
         this.handleNotes();
     }
 
-    handleNotes(input){
+    handleNotes(input) {
         let notes = this.state.notes;
         let url;
 
         notes = [];
 
-        if(input == null){
+        if (input == null) {
             url = '/notes/public/api/notes' + '?user_id=' + this.getUserID();
             fetch(url)
                 .then(res => {
@@ -43,28 +43,28 @@ class Main extends Component {
                     for (let i = 0; i < data.data.length; i++) {
                         notes.push(data.data[i]);
                     }
-                    this.setState({pages:data.links});
-                    this.setState({meta:data.meta});
+                    this.setState({pages: data.links});
+                    this.setState({meta: data.meta});
 
                 });
-        }else{
+        } else {
             for (let i = 0; i < input.data.length; i++) {
                 notes.push(input.data[i]);
             }
 
-            this.setState({pages:input.links});
-            this.setState({meta:input.meta});
+            this.setState({pages: input.links});
+            this.setState({meta: input.meta});
         }
 
         this.setState({notes: notes});
 
     }
 
-    setNote(data){
-        this.setState({note:data.data});
+    setNote(data) {
+        this.setState({note: data.data});
     }
 
-    handleDeleteNote(id){
+    handleDeleteNote(id) {
         let url = '/notes/public/api/note/' + id + '?user_id=' + this.getUserID();
         let page;
 
@@ -73,7 +73,7 @@ class Main extends Component {
                 return res.json();
             })
             .then(data => {
-                if(data.meta.last_page < this.state.meta.current_page)
+                if (data.meta.last_page < this.state.meta.current_page)
                     page = data.meta.last_page;
                 else
                     page = this.state.meta.current_page;
@@ -81,13 +81,13 @@ class Main extends Component {
                 this.handleGetPages(page);
             });
 
-        this.setState({note:[]});
+        this.setState({note: []});
     }
 
-    handleGetPages(value){
+    handleGetPages(value) {
         let url;
-        let user_id =  '&user_id=' + this.getUserID();
-        switch(value){
+        let user_id = '&user_id=' + this.getUserID();
+        switch (value) {
             case 'first':
                 url = this.state.pages.first;
                 break;
@@ -114,8 +114,8 @@ class Main extends Component {
             });
     }
 
-    handleAddNote(refs){
-        if(refs.title.value === ''){
+    handleAddNote(refs) {
+        if (refs.title.value === '') {
             alert('A title is required');
         } else {
 
@@ -140,15 +140,15 @@ class Main extends Component {
                 .then(data => {
                     page = data.meta.last_page;
 
-                    this.setState({pages:data.links});
-                    this.setState({meta:data.meta});
+                    this.setState({pages: data.links});
+                    this.setState({meta: data.meta});
 
                     this.handleGetPages(page);
                 });
         }
     }
 
-    handleEditNote(refs){
+    handleEditNote(refs) {
         let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
         let page;
 
@@ -176,7 +176,7 @@ class Main extends Component {
 
     }
 
-    handleSearch(input){
+    handleSearch(input) {
 
         let url = '/notes/public/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
 
@@ -191,31 +191,67 @@ class Main extends Component {
 
     }
 
-    getUserID(){
+    getUserID() {
         return document.getElementsByName('user_id')[0].getAttribute('content');
     }
 
     render() {
+
+
+    //    <SearchBar
+    //        onSearch={this.handleSearch.bind(this)}
+    //
+    //    />
+    //    <Notes
+    //    notes={this.state.notes}
+    //    pages={this.state.pages}
+    //    meta={this.state.meta}
+    //    getNotes={this.handleNotes.bind(this)}
+    //    clickNote={this.setNote.bind(   this)}
+    //    getPages={this.handleGetPages.bind(this)}
+    ///>
+
+    //    <NoteItem
+    //        note={this.state.note}
+    //        onEditClick={this.handleEditNote.bind(this)}
+    //        onDeleteClick={this.handleDeleteNote.bind(this)}
+    //    />
+    //    <AddNote
+    //    onSubmit={this.handleAddNote.bind(this)}
+    //    note={this.state.note}
+    ///>
+
+
         return (
             <div className="container">
-                <SearchBar
-                    onSearch={this.handleSearch.bind(this)}
-                />
-                <Notes notes={this.state.notes}
-                       pages={this.state.pages}
-                       meta={this.state.meta}
-                       getNotes={this.handleNotes.bind(this)}
-                       clickNote={this.setNote.bind(this)}
-                       getPages={this.handleGetPages.bind(this)}
-                />
-                <NoteItem note={this.state.note}
-                          onEditClick={this.handleEditNote.bind(this)}
-                          onDeleteClick={this.handleDeleteNote.bind(this)}
-                />
-                <AddNote
-                    onSubmit={this.handleAddNote.bind(this)}
-                    note={this.state.note}
-                />
+                <div className="row">
+                    <div className="leftside col-md-6">
+                        <SearchBar
+                            onSearch={this.handleSearch.bind(this)}
+
+                        />
+                        <Notes
+                            notes={this.state.notes}
+                            pages={this.state.pages}
+                            meta={this.state.meta}
+                            getNotes={this.handleNotes.bind(this)}
+                            clickNote={this.setNote.bind(   this)}
+                            getPages={this.handleGetPages.bind(this)}
+                        />
+                    </div>
+                    <div className="rightside col-md-6">
+                        <AddNote
+                            onSubmit={this.handleAddNote.bind(this)}
+                            note={this.state.note}
+                        />
+                        <NoteItem
+                            note={this.state.note}
+                            onEditClick={this.handleEditNote.bind(this)}
+                            onDeleteClick={this.handleDeleteNote.bind(this)}
+                        />
+
+                    </div>
+                </div>
             </div>
         );
     }
