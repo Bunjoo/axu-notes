@@ -34,7 +34,7 @@ class Main extends Component {
         notes = [];
 
         if (input == null) {
-            url = '/notes/public/api/notes' + '?user_id=' + this.getUserID();
+            url = '/api/notes' + '?user_id=' + this.getUserID();
             fetch(url)
                 .then(res => {
                     return res.json();
@@ -67,7 +67,7 @@ class Main extends Component {
     }
 
     handleDeleteNote(id) {
-        let url = '/notes/public/api/note/' + id + '?user_id=' + this.getUserID();
+        let url = '/api/note/' + id + '?user_id=' + this.getUserID();
         let page;
 
         fetch(url, {method: 'DELETE'})
@@ -103,7 +103,7 @@ class Main extends Component {
                 url = this.state.pages.last;
                 break;
             default:
-                url = '/notes/public/api/notes?page=' + value;
+                url = '/api/notes?page=' + value;
         }
 
 
@@ -122,7 +122,7 @@ class Main extends Component {
         } else {
 
             let page;
-            let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
+            let url = '/api/note' + '?user_id=' + this.getUserID();
 
             fetch(url, {
                 method: 'POST',
@@ -151,7 +151,7 @@ class Main extends Component {
     }
 
     handleEditNote(refs) {
-        let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
+        let url = '/api/note' + '?user_id=' + this.getUserID();
         let page;
 
         fetch(url, {
@@ -180,7 +180,7 @@ class Main extends Component {
 
     handleSearch(input) {
 
-        let url = '/notes/public/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
+        let url = '/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
 
         fetch(url)
             .then(res => {
