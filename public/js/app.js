@@ -7180,6 +7180,11 @@ var Main = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 
+        _this.path = window.location.pathname;
+
+        _this.APIurl = _this.path + '/api/'; // '/notes/public/api/'
+
+
         _this.state = {
             notes: [],
             note: {},
@@ -7206,7 +7211,7 @@ var Main = function (_Component) {
             notes = [];
 
             if (input == null) {
-                url = '/notes/public/api/notes' + '?user_id=' + this.getUserID();
+                url = this.APIurl + 'notes' + '?user_id=' + this.getUserID();
                 fetch(url).then(function (res) {
                     return res.json();
                 }).then(function (data) {
@@ -7239,7 +7244,7 @@ var Main = function (_Component) {
         value: function handleDeleteNote(id) {
             var _this3 = this;
 
-            var url = '/notes/public/api/note/' + id + '?user_id=' + this.getUserID();
+            var url = this.APIurl + 'note/' + id + '?user_id=' + this.getUserID();
             var page = void 0;
 
             fetch(url, { method: 'DELETE' }).then(function (res) {
@@ -7273,7 +7278,7 @@ var Main = function (_Component) {
                     url = this.state.pages.last;
                     break;
                 default:
-                    url = '/notes/public/api/notes?page=' + value;
+                    url = this.APIurl + 'notes?page=' + value;
             }
 
             fetch(url + user_id).then(function (res) {
@@ -7292,7 +7297,7 @@ var Main = function (_Component) {
             } else {
 
                 var page = void 0;
-                var url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
+                var url = this.APIurl + 'note' + '?user_id=' + this.getUserID();
 
                 fetch(url, {
                     method: 'POST',
@@ -7322,7 +7327,7 @@ var Main = function (_Component) {
         value: function handleEditNote(refs) {
             var _this6 = this;
 
-            var url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
+            var url = this.APIurl + 'note' + '?user_id=' + this.getUserID();
             var page = void 0;
 
             fetch(url, {
@@ -7350,7 +7355,7 @@ var Main = function (_Component) {
         value: function handleSearch(input) {
             var _this7 = this;
 
-            var url = '/notes/public/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
+            var url = this.APIurl + 'notes' + '?searchTerm=' + input + '&user_id=' + this.getUserID();
 
             fetch(url).then(function (res) {
                 return res.json();
@@ -53772,7 +53777,9 @@ var Notes = function (_Component) {
 
             e.preventDefault();
 
-            var url = '/notes/public/api/note/' + note.id;
+            this.path = window.location.pathname;
+
+            var url = this.path + '/api/note/' + note.id;
 
             fetch(url).then(function (res) {
                 return res.json();

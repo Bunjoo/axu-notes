@@ -11,9 +11,12 @@ import SearchBar from './SearchBar';
 
 /* An example React component */
 class Main extends Component {
-
     constructor() {
         super();
+
+        this.path = window.location.pathname;
+        this.APIurl = this.path + '/api/';
+
         this.state = {
             notes: [],
             note: {},
@@ -34,7 +37,7 @@ class Main extends Component {
         notes = [];
 
         if (input == null) {
-            url = '/notes/public/api/notes' + '?user_id=' + this.getUserID();
+            url = this.APIurl + 'notes' + '?user_id=' + this.getUserID();
             fetch(url)
                 .then(res => {
                     return res.json();
@@ -67,7 +70,7 @@ class Main extends Component {
     }
 
     handleDeleteNote(id) {
-        let url = '/notes/public/api/note/' + id + '?user_id=' + this.getUserID();
+        let url = this.APIurl + 'note/' + id + '?user_id=' + this.getUserID();
         let page;
 
         fetch(url, {method: 'DELETE'})
@@ -103,7 +106,7 @@ class Main extends Component {
                 url = this.state.pages.last;
                 break;
             default:
-                url = '/notes/public/api/notes?page=' + value;
+                url = this.APIurl + 'notes?page=' + value;
         }
 
 
@@ -122,7 +125,8 @@ class Main extends Component {
         } else {
 
             let page;
-            let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
+            let url = this.APIurl + 'note' + '?user_id=' + this.getUserID();
+
 
             fetch(url, {
                 method: 'POST',
@@ -151,7 +155,7 @@ class Main extends Component {
     }
 
     handleEditNote(refs) {
-        let url = '/notes/public/api/note' + '?user_id=' + this.getUserID();
+        let url = this.APIurl + 'note' + '?user_id=' + this.getUserID();
         let page;
 
         fetch(url, {
@@ -180,7 +184,7 @@ class Main extends Component {
 
     handleSearch(input) {
 
-        let url = '/notes/public/api/notes?searchTerm=' + input + '&user_id=' + this.getUserID();
+        let url = this.APIurl + 'notes' + '?searchTerm=' + input + '&user_id=' + this.getUserID();
 
         fetch(url)
             .then(res => {

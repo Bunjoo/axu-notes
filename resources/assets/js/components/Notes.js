@@ -14,7 +14,9 @@ class Notes extends Component {
     handleClick(e, note){
         e.preventDefault();
 
-        let url = '/notes/public/api/note/' + note.id;
+        this.path = window.location.pathname;
+
+        let url = this.path + '/api/note/' + note.id;
 
         fetch(url)
             .then(res => {
