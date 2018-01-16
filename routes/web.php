@@ -16,11 +16,6 @@
 
 Auth::routes();
 
-
-Route::get('/notes', function () {
-    return view('notes');
-})->middleware('auth');
-
 Route::get('/', function () {
     return view('notes');
 })->middleware('auth');
