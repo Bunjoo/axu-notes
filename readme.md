@@ -31,8 +31,7 @@ git checkout local-dev
 Composer install
 ```
 
-
-##Database Setup
+## Database Setup
 
 go to localhost/phpmyadmin create a new database called 'notes'
 
@@ -49,6 +48,16 @@ php artisan migrate
 ```
 
 **Optional**: seeding db `php artisan db:seed`
+
+## Last Steps
+
+```
+npm install
+```
+
+```
+npm run dev
+```
 
 visit your localhost to see your new notes app!
 
